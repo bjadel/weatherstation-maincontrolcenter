@@ -2,7 +2,7 @@ import sqlite3
 
 class MeasurandDAO:
 
-	DATABASE_FILE = '/mnt/data/database/weatherstation/sqlite/var/measuranddb'
+	DATABASE_FILE = '/home/pi/station/weatherstation-maincontrolcenter/data/database/weatherstation/sqlite/var/measuranddb'
 
 	def __init__(self):
 		try:
