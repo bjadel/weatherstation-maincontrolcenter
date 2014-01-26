@@ -14,7 +14,7 @@ def persistMeasurand(hostname, portnumber, sensorid, locationid, unit):
 	val = getValue(hostname, portnumber, sensorid)
 	
 	# persist value to db
-	# persistValue(val, unit, locationid, sensorid)
+	persistValue(val, unit, locationid, sensorid)
 
 def getValue(hostname, portnumber, sensorid):
 	# startup socket
