@@ -1,4 +1,5 @@
 bin/
 data/
-programs/MeasurandDAO.pyc
-
+programs/config/Configuration.py
+programs/config/Configuration.pyc
+programs/*.pyc

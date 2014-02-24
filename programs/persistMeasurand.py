@@ -3,7 +3,8 @@
 import optparse
 import time
 import socket
-import MeasurandDAO
+from MeasurandDAO import *
+from QueueSyncer import *
 from protocol_backend import *
 
 
@@ -12,9 +13,12 @@ BUFFER_SIZE = 1024
 def persistMeasurand(hostname, portnumber, sensorid, locationid, unit):
 	# get value
 	val = getValue(hostname, portnumber, sensorid)
-	
+
 	# persist value to db
 	persistValue(val, unit, locationid, sensorid)
+
+	# sync the whole queue to mysql server
+	syncQueue()
 
 def getValue(hostname, portnumber, sensorid):
 	# startup socket
@@ -36,14 +40,18 @@ def getValue(hostname, portnumber, sensorid):
 	# let the backend decode the received value
 	value = backend.decodePacket(receivedValue)
 
-	print value
 	return value
 	
 def persistValue(value, unit, locationid, sensorid):
-	
-	daoMeasurand = MeasurandDAO.MeasurandDAO()
+	daoMeasurand = MeasurandDAO()
 	daoMeasurand.persistMeasurand(value, unit, locationid, sensorid)
+	daoMeasurand.insertIntoSyncQueue()
 	daoMeasurand.closeHandle()
+
+def syncQueue():
+	queueSyncer = QueueSyncer()
+	queueSyncer.sync()
+	queueSyncer.closeHandle()
 
 parser = optparse.OptionParser("usage: %prog [options] arg1 arg2")
 parser.add_option("-H", "--host", dest="hostname", default="192.168.0.50", type="string", help="weatherstation lan ip")
