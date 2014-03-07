@@ -23,5 +23,5 @@ class MeasurandWebservice:
 		except Exception, e:
 			print e
 			return False
-		return False
+		return True
 		

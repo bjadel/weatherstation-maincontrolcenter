@@ -1,6 +1,6 @@
 import sys
 from sqlite3 import connect, OperationalError
-sys.path.append('config')
+sys.path.append('/home/pi/station/weatherstation-maincontrolcenter/programs/config')
 from Configuration import *
 
 class MeasurandDAO:

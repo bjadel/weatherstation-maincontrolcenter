@@ -1,6 +1,6 @@
 import sys, json
 from sqlite3 import connect, OperationalError
-sys.path.append('config')
+sys.path.append('/home/pi/station/weatherstation-maincontrolcenter/programs/config')
 from Configuration import *
 from MeasurandWebservice import *
 
@@ -34,5 +34,5 @@ class QueueSyncer:
 		return self.cursor.fetchall()
 
 	def clearSyncQueue(self):
-		cmd = "DELETE * FROM SYNC_QUEUE"
+		cmd = "DELETE FROM SYNC_QUEUE"
 		self.cursor.execute(cmd)
